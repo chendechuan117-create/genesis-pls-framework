@@ -118,6 +118,33 @@ point -> line -> surface
 
 ---
 
+## V6 在这个模板中的位置
+
+这个仓库里确实包含 `genesis/v6/`，但它不是当前 README 开头那条最小 Yogg/PLS 主路径。
+
+V6 在这里更准确地说是 PLS 之上的实验层：尝试把 PLS 留下的离散痕迹，编译成更轻的参数化先验或影子预测，而不是替代点线面。
+
+当前能从代码确认的 V6 内容：
+
+- **`genesis/v6/audit_pls_learnability.py`**：只读审计 NodeVault 与 trace 数据是否有可学习信号。
+- **`genesis/v6/baseline_pls_predictability.py`**：用 baseline 检查 signature/tool 等标签是否可预测。
+- **`genesis/v6/dataset_compiler.py`**：从 NodeVault 的 embedding 与 metadata signature 编译训练张量和标签词表。
+- **`genesis/v6/signature_shadow.py`**：根据输入文本预测 `error_kind`、`framework`、`task_kind`、`runtime`、`target_kind` 等 signature 维度，并写入 `runtime/v6_shadow_predictions.jsonl`。
+- **`genesis/v6/brain.py`**：NumPy 小模型原型，权重默认在 `runtime/v6_brain_weights.npz`。
+- **`genesis/v4/loop.py`**：会异步调度一次 V6 signature shadow prediction；它记录结果，但不改变本轮回答、工具选择或 prompt。
+- **`genesis/v4/surface.py`**：存在 `_v6_gating_filter()`，但默认 `V6_ACTIVE_GATING=0` 时直接返回原候选集合；只有显式开启环境变量并存在词表与权重时才可能影响 Surface 候选。
+
+因此，V6 当前不应被宣传成“已接管运行时的小脑”。更保守、也更符合代码事实的表述是：
+
+```text
+PLS = 当前主机制：点线面存储、搜索、装配、回写。
+V6 = PLS 之上的实验性压缩/预测层：默认只记录，不参与决策。
+```
+
+如果你只想复现 Yogg 放生模式和 PLS，先忽略 V6。等点线面里有足够高质量痕迹后，再用 V6 脚本审计这些痕迹是否真的能被学习；审计不过，就不应该让 V6 进入运行时门控。
+
+---
+
 ## Yogg 放生模式的实际边界
 
 本 README 描述的是 Yogg 路径，不描述完整 Genesis 仓库中所有历史模块。
@@ -331,6 +358,7 @@ genesis/
     loop.py                 G/Op/C 主循环与 disable_multi_g 逻辑
     manager.py              NodeVault(SQLite) 与 PLS 拓扑存储
     surface.py              SurfaceExpander 三层面装配
+  v6/                       PLS 痕迹可学习性审计、影子预测、小模型原型
 doctor/                     Docker 沙箱
 yogg_auto.py                独立放生模式 runner
 factory.py                  provider 与工具注册入口
