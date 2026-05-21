@@ -1,0 +1,80 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Environment
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# SQLite databases
+*.sqlite
+*.sqlite3
+*.db
+runtime/*
+!runtime/.gitkeep
+
+# Logs and Backup files
+*.log
+*.backup
+*_backup.py
+*_original.py
+*_modified.py
+
+# IDEs
+.idea/
+.vscode/
+.claude/
+.windsurf/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+.gitnexus
+.cascade/
+health_report.json
+
+# Local-only files (not for GitHub)
+*.exe
+*.patch
+*.original
+*.new
+socket
+exe_files.txt
+api_test_report.json
